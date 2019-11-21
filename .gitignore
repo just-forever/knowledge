@@ -1,11 +1,7 @@
 /node_modules
-/public
-.idea
-/src/pages/.umi
+# .idea
 .DS_Store
 src/.DS_Store
 dist
-Dockerfile
-coverage
 package-lock.json
 yarn.lock
