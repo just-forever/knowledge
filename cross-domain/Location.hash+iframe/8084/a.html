@@ -1,0 +1,24 @@
+
+<html>
+<meta charset="UTF-8" />
+<h1>通过IFRAME 和 location.hash 进行javasript 跨域</h1>
+
+引入header.html
+<iframe id="iframe" src="http://127.0.0.1:8083/b.html"></iframe>
+<input type="button" onClick="changecolor()" value="change color" id="btn" />
+<script>
+    var iframe = document.getElementById('iframe');
+	var _timeid = setInterval(checkHash, 1000);
+	function checkHash() {
+   		switch (location.hash) {
+			case '#mainred':
+				document.getElementById("btn").style.color = "red";
+            break;
+        }
+    }
+
+    function changecolor() {
+        iframe.src = 'http://127.0.0.1:8083/b.html#red';
+    }
+</script>
+</html>

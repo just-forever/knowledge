@@ -1,0 +1,25 @@
+
+<html>
+<meta charset="UTF-8" />
+<body>
+<a href="javascript:;" id="btn">点击改变主页面按钮颜色</a>
+<iframe src="http://127.0.0.1:8084/c.html" width="" height="" id="cdiframe" style="display: none;"></iframe>
+<script>
+    var _timeid = setInterval(checkHash, 3000);
+    function checkHash() {
+        switch (location.hash) {
+            case '#red':
+            callback();
+            break;
+        }
+    }
+    function callback() {
+        document.getElementById("btn").style.color = "red";
+    }
+
+    document.getElementById("btn").onclick = function(){
+    document.getElementById("cdiframe").src = document.getElementById("cdiframe").src + "#mainred";
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8" />
+		<title>Websocket</title>
+		<script src="../vue.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+	</head>
+
+	<body>
+		Incoming Chat:
+		<div id="app">
+			<ul>
+				<li v-for="todo in todos">
+					{{ todo.text }}
+				</li>
+			</ul>
+			<br />
+			<input
+				type="text"
+				@blur="sendmessage()"
+				@keyup.enter="sendmessage()"
+				v-model="inputText"
+			/>
+		</div>
+		<script>
+			const iosocket = io.connect('http://localhost:1234/');
+			const app = new Vue({
+				el: '#app',
+				data: {
+					message: 'Hello Vue!',
+					todos: [],
+					inputText: ''
+				},
+				mounted: function() {
+					iosocket.on('connect', () => {
+						//接通处理
+						this.todos.push({ text: '连上啦' });
+						iosocket.on('message', message => {
+							//收到信息处理
+							this.todos.push({ text: message });
+						});
+						iosocket.on('disconnect', () => {
+							//断开处理
+							this.todos.push({ text: 'disconnected' });
+						});
+					});
+				},
+				methods: {
+					sendmessage: function() {
+						event.preventDefault();
+						if (this.inputText) {
+							console.log('send : ' + this.inputText);
+							iosocket.send(this.inputText);
+							this.inputText = '';
+						}
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

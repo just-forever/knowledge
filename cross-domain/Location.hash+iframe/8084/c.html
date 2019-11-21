@@ -1,0 +1,14 @@
+<html>
+    <meta charset="UTF-8" />
+    <script>
+
+        /****crossmain 和  index在同一域名下可以相互通信**************/
+
+        var _timeid = setInterval(checkHash, 3000);
+        function checkHash(){
+			console.log(location.hash, location.hash.substring(1));
+            parent.parent.location.hash = location.hash.substring(1);
+        }
+
+    </script>
+</html>
