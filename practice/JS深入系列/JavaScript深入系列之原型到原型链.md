@@ -102,3 +102,92 @@ person.constructor === Person.prototype.constructor
 其次是__proto__,绝大多数浏览器都支持这个非标准的方法访问原型，然而这个方法并不存在于Person.prototype中，虽然Person.prototype也有这个方法，但实际上，他是来自于Object.prototype。
 
 与其说是一个属性，不如说是一个getter/setter?? 什么意思？
+
+## 更新一个有意思的构造函数，叫Function
+
+看一下Function，自己是真的理解了这个函数吗？？
+
+首先它是一个构造函数，是用来生成函数的构造函数。而我们常见的String(),Number(),Boolen()这些函数就是Function构造出来的，new出来的实例。
+
+有一个疑问？ typeof String， 是'function'，但所有的实例都是对象，那function是对象吗？
+
+>MDN这样介绍：在JS中，函数是头等对象。因为他可以像任何其他对象一样具有属性和方法，他们与其他对象的区别就在于函数可以被调用，所以他们是Function对象。
+>>不推荐使用 Function 构造函数创建函数,因为它需要的函数体作为字符串可能会阻止一些JS引擎优化,也会引起其他问题。
+
+new构造函数，也是函数表达式，但该用法不推荐，这种语法会导致解析两次代码：第一次解析常规的ECMAScript代码，第二次解析传入构造函数的字符串，影响性能。使用Function构造函数，构造函数可以接收任意数量的参数，但最后一个参数始终是函数体。
+
+```js
+var sum=new Function('num1','num2','return num1+num2;');
+sum;
+//ƒ anonymous(num1,num2
+//) {
+//return num1+num2;
+//}
+```
+
+当使用不带圆括号的函数名是访问函数指针，而非调用函数。
+
+```js
+console.log(Function instanceof Object); // true
+console.log(Object instanceof Function); // true
+```
+
+第一个用函数的定义来说,(javascript中函数实际也是一个函数对象),当然为true,那第二个呢?对象也是函数?
+
+Object也是函数.因为Object的结构是function Object(){native code}.
+
+这种形式,很清晰的就是声明的一个Object函数,当然就是函数了,所以两个都是为true.
+
+ 第一个用函数的定义来说,(javascript中函数实际也是一个函数对象),当然为true,那第二个呢?对象也是函数?
+
+Object也是函数.因为Object的结构是function Object(){native code}.
+
+这种形式,很清晰的就是声明的一个Object函数,当然就是函数了,所以两个都是为true.
+
+但
+
+```js
+Object.__proto__===Function.prototype;//true,这个毫无异议，我支持啊;
+Function.__proto__===Object.prototype;//false,这个怎么解释，难道‘Function instanceof Object’仅仅只是一个概念上的骗局？
+```
+
+如何解释？？
+
+首先，JS的基础就是Object,JS里面一切都是继承自Object（除了原型链顶端的null）。不停强化这个概念 Object 是夏娃，js 的子子孙孙都是她生的。
+
+### 先说instanceof
+
+A instanceof B 是在A的原型链里查找B的constructor，找到返回true, 找不到返回false.
+
+### 再说 Function instanceof Object
+
+一切都是继承自Object的，Function是一个对象，所以Function instanceof Object === true.
+
+### 接着说Object instanceof Function
+
+1.任何一个function(){}都是Function对象的实例，自然(function(){}) instanceof Function 的值都是 true。
+2.Object自身是一个构造函数，没错，是函数，函数都是继承自Function，所以 Object instanceof Function === true。
+
+### 最后说__proto__
+
+根据定义，__proto__是对象(Object)的原型(prototype)的构造函数(constructor)引用
+
+在JS设计的过程中，Object 的 __proto__ 很神奇地指向了 Function.prototype。
+
+所以
+
+```js
+Object.__proto__ === Function.prototype; // true
+Object.__proto__ == Object.prototype; // false
+```
+
+而 Function.__proto__ 自然而然不等于 Object.prototype。
+
+但是
+
+```js
+Function.prototype.__proto__ === Object.prototype; // true
+```
+
+好绕啊！！！
+
