@@ -191,3 +191,11 @@ Function.prototype.__proto__ === Object.prototype; // true
 
 好绕啊！！！
 
+ES规范这样说： 
+>Function本身就是函数，Function.__proto__是标准的内置对象Function.prototype。
+Function.prototype.__proto__是标准的内置对象Object.prototype。
+
+```js
+Function.prototype和Function.__proto__都指向Function.prototype，这就是鸡和蛋的问题怎么出现的。
+Object.prototype.__proto__ === null，说明原型链到Object.prototype终止。
+```
