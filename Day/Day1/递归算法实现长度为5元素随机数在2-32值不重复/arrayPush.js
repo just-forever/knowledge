@@ -3,7 +3,7 @@
 //递归找好出口即可。
 var array = [];
 var num = RandomArray();
-function createArray(array, num) {
+function createArray(num) {
 	if (array.length === 5) {
 		console.log(array);
 		return array;
@@ -12,11 +12,11 @@ function createArray(array, num) {
 	if (!array.includes(num)) {
 		array.push(num);
 	} 
-	createArray(array, RandomArray());
+	createArray(RandomArray());
 }
 
 function RandomArray() {
 	return Math.floor(Math.random() * 32 + 2)
 }
 
-createArray(array, num);
+createArray(num);
