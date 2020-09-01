@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<style>
+	/** 正三角 */
+	.a-triangle {
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 0 25px 40px 25px;
+		border-color: transparent transparent rgb(245, 129, 127) transparent;
+	}
+
+		/** 倒三角 */
+	.b-triangle {
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 25px;
+		border-color: red blue rgb(245, 129, 127) green;
+	}
+
+	.dotted-line{
+		border: 1px dashed transparent;
+		background: linear-gradient(white,white) padding-box, repeating-linear-gradient(-45deg,#ccc 0, #ccc .25em,white 0,white .75em);
+	}
+
+	.single-ellipsis{
+		width: 30px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.multiline-ellipsis {
+		width: 30px;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 4;
+		/* webkit-line-clamp不是一个规范的属性，所以需要组合其他外来的webkit属性。 */
+		/* display: -webkit-box; 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。
+		-webkit-box-orient 必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。
+		text-overflow，可以用来多行文本的情况下，用省略号“...”隐藏超出范围的文本 。 */
+		word-break: break-all;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+
+</style>
+<body>
+	<p>三角形</p>
+	<div class="a-triangle"></div>
+	<br>
+	<p>border实际构造</p>
+	<div class="b-triangle"></div>
+	<br>
+	<p>虚线效果</p>
+	<!-- 具体的虚线的颜色和间距都可以通过repeating-linear-gradient生成的条纹背景去调整。 -->
+	<div class="dotted-line">
+		<p>具体的虚线的颜色和间距都可以通过repeating-linear-gradient生成的条纹背景去调整</p>
+		<p>具体的虚线的颜色和间距都可以通过repeating-linear-gradient生成的条纹背景去调整</p>
+	</div>
+	<br>
+	<p>文本超出省略号</p>
+	<p>单行文本</p>
+	<div>这是一个测试单行文本溢出的用例，为了测出，多加些文字，不行的话，我再加点</div>
+	<p>多行文本</p>
+	<div>这是一个测试多行文本溢出的用例，为了测出，多加些文字，不行的话，我再加点</div>
+</body>
+</html>

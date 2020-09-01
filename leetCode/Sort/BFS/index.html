@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<div id="root">
+		<div class="container">
+		  <section class="sidebar">
+			<ul class="menu">
+			  <li class="item-1">a</li>
+			  <li class="item-1">
+				<a class="link">b</a>
+			  </li>
+			</ul>
+		  </section>
+		  <section class="main">
+			<article class="post">c</article>
+			<p class="copyright">d</p>
+		  </section>
+		</div>
+	</div>
+</body>
+<script>
+// BFS
+
+// document.getElementById 返回一个匹配到 ID 的 DOM Element 对象。若在当前 Document 下没有找到，则返回 null。
+// 
+function bfsTraversal(nodeRoot) {
+	if (!nodeRoot) {
+		console.error('node root is undefined');
+		return [];
+	}
+	const quene = [nodeRoot];
+	console.log(nodeRoot, quene.length);
+	const result = [];
+	while(quene.length) {
+		const node = quene.shift();
+		result.push(node);
+	
+		if (!node.children.length) {
+			continue;
+		}
+
+		Array.from(node.children).forEach(node => quene.push(node));
+	}
+
+	return result;
+}
+
+bfsTraversal(document.getElementById('root')).map(item => {
+    console.log(item, item.nodeName, item.className)
+})
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<div id="root">
+		<div class="container">
+		  <section class="sidebar">
+			<ul class="menu">
+			  <li class="item-1">a</li>
+			  <li class="item-1">
+				<a class="link">b</a>
+			  </li>
+			</ul>
+		  </section>
+		  <section class="main">
+			<article class="post">c</article>
+			<p class="copyright">d</p>
+		  </section>
+		</div>
+	</div>
+</body>
+<script>
+// 栈的方式实现
+function dfsTraversal(node) {
+	const nodeList = [];
+	const stack = [];
+	// console.log(node);
+	if (node) {
+		stack.push(node);
+		while(stack.length) {
+			const currentNode = stack.pop();
+			nodeList.push(currentNode);
+			// console.log(nodeList);
+			if (currentNode.children.length) {
+				// console.log(currentNode.children);
+				// console.log(Array.from(currentNode.children));
+				// Array.from(currentNode.children).forEach(node => stack.push(node))
+				// 因为栈是先进后出，所以这里需要倒序入栈，顺序出栈
+				for (i = currentNode.children.length - 1; i >= 0; i--) {
+					stack.push(currentNode.children[i])
+				}
+			}
+		}
+	}
+
+	return nodeList;
+}
+
+//   function dfsTraversal(node, nodeList = []) {
+//       nodeList.push(node)
+//       if (node.children.length) {
+//         for (var i = 0; i < node.children.length; i++) {
+//           dfsTraversal(node.children[i], nodeList)
+//         }
+//       }
+//       return nodeList
+//   }
+
+ dfsTraversal(document.getElementById('root')).forEach(item => {
+      console.log(item, item.nodeName, item.className)
+  })
+// 递归方式实现
+
+
+</script>
+</html>

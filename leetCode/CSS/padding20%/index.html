@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.inner { 
+			width: 10px;
+			padding-top: 30%;
+		}
+	</style>
+</head>
+// 参考系为包含块的父元素。这里用例的父元素为浏览器的高度，我的为680，所以算出来的是136.8。当有包裹的时候，应该也算的是父元素的高度。position absolute的参考系是第一个position不为static的父元素。
+// 重点：包含块的高度的百分比
+<body>
+	<div class="inner"></div>
+</body>
+</html>
